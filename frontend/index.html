@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Budget Beverage Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">☕ Smart Beverage Advisor</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#menu" class="nav-link">Menu</a>
+                <a href="#profile" class="nav-link">Profile</a>
+                <button class="btn-primary" id="authBtn">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="authTitle">Sign In</h2>
+            <form id="authForm">
+                <div class="form-group" id="emailGroup" style="display:none;">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group" id="budgetGroup" style="display:none;">
+                    <label for="weeklyBudget">Weekly Budget ($)</label>
+                    <input type="number" id="weeklyBudget" placeholder="25.00" step="0.01" min="0">
+                </div>
+                <button type="submit" class="btn-primary btn-block">Sign In</button>
+                <p class="auth-toggle">
+                    Don't have an account? <a href="#" id="toggleAuth">Sign Up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Smart Beverage Recommendations</h1>
+            <p>Get personalized drink suggestions based on your mood and budget</p>
+            <button class="btn-primary btn-large" id="getStartedBtn">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Recommendation Section -->
+    <section class="recommendation-section" id="recommend" style="display:none;">
+        <div class="container">
+            <h2>Find Your Perfect Drink</h2>
+            
+            <!-- Mood Selector -->
+            <div class="mood-selector">
+                <h3>How are you feeling?</h3>
+                <div class="mood-options">
+                    <button class="mood-btn" data-mood="Happy">😊 Happy</button>
+                    <button class="mood-btn" data-mood="Tired">😴 Tired</button>
+                    <button class="mood-btn" data-mood="Stressed">😰 Stressed</button>
+                    <button class="mood-btn" data-mood="Focused">🎯 Focused</button>
+                </div>
+            </div>
+
+            <!-- Budget Progress Bar -->
+            <div class="budget-section">
+                <h3>Your Weekly Budget</h3>
+                <div class="budget-info">
+                    <div class="budget-details">
+                        <span id="spentAmount">$0.00</span> spent of <span id="totalBudget">$25.00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="budget-remaining">
+                        Remaining: <span id="remainingAmount">$25.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Input -->
+            <div class="budget-input-section">
+                <h3>Set Your Budget for Recommendations</h3>
+                <div class="budget-input-group">
+                    <label for="budgetInput">Maximum price per drink ($):</label>
+                    <input type="number" id="budgetInput" placeholder="5.00" step="0.50" min="0" max="20">
+                    <button class="btn-splurge" id="splurgeBtn">Can I Splurge? 💸</button>
+                </div>
+            </div>
+
+            <!-- Get Recommendations Button -->
+            <button class="btn-primary btn-large" id="getRecommendationsBtn" disabled>
+                Get Recommendations
+            </button>
+
+            <!-- Recommended Drinks Display -->
+            <div class="recommendations-results" id="recommendationsResults" style="display:none;">
+                <h3>Recommended for You</h3>
+                <div class="drinks-grid" id="drinksGrid">
+                    <!-- Drinks will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu" style="display:none;">
+        <div class="container">
+            <h2>Our Beverage Menu</h2>
+            <div class="menu-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Coffee">Coffee</button>
+                <button class="filter-btn" data-category="Latte">Latte</button>
+                <button class="filter-btn" data-category="Espresso">Espresso</button>
+                <button class="filter-btn" data-category="Frappuccino">Frappuccino</button>
+                <button class="filter-btn" data-category="Tea">Tea</button>
+            </div>
+            <div class="drinks-grid" id="menuGrid">
+                <!-- Menu items will be populated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section" id="profile" style="display:none;">
+        <div class="container">
+            <h2>Your Profile</h2>
+            <div class="profile-card">
+                <div class="profile-info">
+                    <h3 id="profileUsername">Username</h3>
+                    <p id="profileEmail">email@example.com</p>
+                    <p>Member since: <span id="profileMemberSince">-</span></p>
+                </div>
+                <div class="profile-budget">
+                    <h4>Weekly Budget Settings</h4>
+                    <div class="form-group">
+                        <label for="updateBudget">Weekly Budget ($)</label>
+                        <input type="number" id="updateBudget" step="0.01" min="0">
+                        <button class="btn-primary" id="updateBudgetBtn">Update Budget</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Purchase History -->
+            <div class="purchase-history">
+                <h3>Purchase History</h3>
+                <div class="history-list" id="historyList">
+                    <!-- History items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
