@@ -1327,3 +1327,42 @@ body {
 }
 
 /* Dark Mode Support - Removed to maintain consistent white text */
+
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 2px solid var(--primary-green);
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    margin: 2rem 0 1rem 0;
+    font-size: 0.95rem;
+}
+
+.back-button:hover {
+    background: var(--primary-green);
+    color: var(--white);
+    transform: translateX(-4px);
+}
+
+.back-button-arrow {
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
+}
+
+.back-button:hover .back-button-arrow {
+    transform: translateX(-4px);
+}
+
+.back-button-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
