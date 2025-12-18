@@ -25,14 +25,6 @@
         </div>
     </nav>
 
-    <!-- Back Button -->
-    <div class="back-button-container">
-        <button class="back-button" onclick="history.back()">
-            <span class="back-button-arrow">←</span>
-            <span>Back</span>
-        </button>
-    </div>
-
     <!-- About Section -->
     <section class="about-section" id="about">
         <div class="container">
@@ -73,10 +65,12 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Built by Shafin</p>
-    </footer>
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <button class="btn-primary" onclick="history.back()">
+            ← Back
+        </button>
+    </div>
 
     <script>
         // About page - accessible to both authenticated and unauthenticated users

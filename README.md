@@ -1,4 +1,4 @@
-# Starbucks Budget Advisor
+# Smart Beverage Budget Advisor
 
 AI-powered drink recommendations using Bayesian learning, MDP optimization, and CSP constraints.
 
