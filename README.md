@@ -85,3 +85,25 @@ Notes:
 - `generate_test_users.py` uses the username list above and seeds realistic 8-week purchase histories.
 - The script sets all test user passwords to `test123`.
 - If a user already exists, the script will clear that user's purchase history and regenerate it.
+
+## Algorithmic decisions
+
+This project combines three algorithmic components to produce budget-aware, preference-driven beverage recommendations.
+
+- **Bayesian preference learning:** We model each user's taste as a posterior over drink attributes (category, flavor, price sensitivity). Observations are purchase events; priors are weakly informative and updated with each purchase. This supports fast personalization from few examples and is implemented in [backend/recommendation_engine.py](backend/recommendation_engine.py) and trained/validated via [backend/train_model.py](backend/train_model.py).
+
+- **MDP (Markov Decision Process) for budget-aware recommendations:** The recommendation policy treats weekly budget as a state (e.g., HIGH/MEDIUM/LOW/CRITICAL), actions as recommending purchasable items, and rewards that trade off expected user satisfaction and budget adherence. This allows the system to prefer lower-cost alternatives when budget is low and to optimize long-term satisfaction over an episode (week). See the policy and state definitions in [backend/recommendation_engine.py](backend/recommendation_engine.py).
+
+- **CSP (Constraint Satisfaction) for hard constraints:** Mood, dietary, and explicit category constraints are enforced as CSP predicates before ranking recommendations. CSP ensures invalid items are filtered (e.g., mood-incompatible drinks, allergic ingredients) and reduces the candidate set for downstream models. Constraint logic lives alongside the recommendation pipeline in [backend/recommendation_engine.py](backend/recommendation_engine.py).
+
+Trade-offs and hyperparameters
+
+- Bayesian learning is data-efficient but sensitive to prior choice; priors are configurable in `train_model.py`.
+- MDP planning improves long-term budget management but increases computation; we use discretized budget states to keep the action space small.
+- CSP filtering enforces safety/mood constraints cheaply but requires high-quality metadata (mood tags, categories) on beverages.
+
+Where to tune
+
+- Adjust prior strength and smoothing in `train_model.py` for faster/slower adaptation.
+- Modify budget state thresholds and reward weights inside `recommendation_engine.py` to change budget vs. satisfaction trade-offs.
+- Update beverage metadata in the database (`beverages` table) to improve CSP filtering accuracy.
