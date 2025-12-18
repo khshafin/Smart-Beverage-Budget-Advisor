@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Smart Budget Beverage Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">☕ Smart Beverage Advisor</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="home.html" class="nav-link active">Home</a>
+                <a href="recommendations.html" class="nav-link">Recommendations</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <button class="btn-primary" id="authBtn">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Smart Beverage Recommendations</h1>
+            <p>Get personalized drink suggestions based on your mood and budget</p>
+            <button class="btn-primary btn-large btn-hero" onclick="window.location.href='recommendations.html'" style="margin-top: 2rem;">
+                <span>Get Started</span>
+                <span class="btn-arrow">→</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Built by Shafin</p>
+    </footer>
+
+    <script src="auth.js"></script>
+</body>
+</html>

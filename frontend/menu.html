@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Smart Budget Beverage Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">☕ Smart Beverage Advisor</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="recommendations.html" class="nav-link">Recommendations</a>
+                <a href="menu.html" class="nav-link active">Menu</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <button class="btn-primary" id="authBtn">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2>Our Beverage Menu</h2>
+            <div class="menu-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Coffee">Coffee</button>
+                <button class="filter-btn" data-category="Latte">Latte</button>
+                <button class="filter-btn" data-category="Espresso">Espresso</button>
+                <button class="filter-btn" data-category="Frappuccino">Frappuccino</button>
+                <button class="filter-btn" data-category="Tea">Tea</button>
+            </div>
+            <div class="drinks-grid" id="menuGrid">
+                <!-- Menu items will be populated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Built by Shafin</p>
+    </footer>
+
+    <script src="menu.js"></script>
+</body>
+</html>

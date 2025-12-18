@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Smart Budget Beverage Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">☕ Smart Beverage Advisor</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="home.html" class="nav-link" id="homeLink" style="display:none;">Home</a>
+                <a href="recommendations.html" class="nav-link" id="recommendLink" style="display:none;">Recommendations</a>
+                <a href="menu.html" class="nav-link" id="menuLink" style="display:none;">Menu</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="profile.html" class="nav-link" id="profileLink" style="display:none;">Profile</a>
+                <button class="btn-primary" id="authBtn">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3>Collaborative Filtering</h3>
+                    <p>Our recommendation engine uses collaborative filtering to analyze patterns in user preferences. By examining what similar users with comparable taste profiles enjoy, we predict drinks you're likely to love.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">🧠</div>
+                    <h3>Content-Based Filtering</h3>
+                    <p>We analyze beverage characteristics like category, price range, and suitable moods. When you express a preference, our algorithm finds drinks with similar attributes that match your current mood and budget.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">📊</div>
+                    <h3>Hybrid Approach</h3>
+                    <p>By combining collaborative and content-based filtering, we create a hybrid recommendation system. This ensures accurate suggestions even for new users while continuously improving as you make more purchases.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">💰</div>
+                    <h3>Budget Intelligence</h3>
+                    <p>Our smart budget tracking monitors your weekly spending and suggests options within your price range. The "Can I Splurge?" feature intelligently calculates how much you can comfortably spend based on remaining budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Built by Shafin</p>
+    </footer>
+
+    <script>
+        // About page - accessible to both authenticated and unauthenticated users
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const authBtn = document.getElementById('authBtn');
+
+            if (token) {
+                // User is logged in - show all navigation links and Sign Out button
+                authBtn.textContent = 'Sign Out';
+                authBtn.onclick = () => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userId');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('selectedMood');
+                    window.location.href = 'index.html';
+                };
+
+                // Show authenticated navigation links
+                document.getElementById('homeLink').style.display = 'inline-block';
+                document.getElementById('recommendLink').style.display = 'inline-block';
+                document.getElementById('menuLink').style.display = 'inline-block';
+                document.getElementById('profileLink').style.display = 'inline-block';
+            } else {
+                // User is not logged in - show Sign In button
+                authBtn.textContent = 'Sign In';
+                authBtn.onclick = () => {
+                    window.location.href = 'index.html';
+                };
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = 'http://127.0.0.1:5001/api';
+const API_URL = 'http://127.0.0.1:5002/api';
 
 // State Management
 let currentUser = null;
@@ -16,6 +16,7 @@ const emailGroup = document.getElementById('emailGroup');
 const budgetGroup = document.getElementById('budgetGroup');
 const closeModal = document.getElementsByClassName('close')[0];
 const getStartedBtn = document.getElementById('getStartedBtn');
+const getStartedLandingBtn = document.getElementById('getStartedLandingBtn');
 const navLinks = document.querySelectorAll('.nav-link');
 const spinner = document.getElementById('spinner');
 const toast = document.getElementById('toast');
@@ -28,10 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Event Listeners
 function setupEventListeners() {
-    // Auth Modal
-    authBtn.addEventListener('click', () => {
-        authModal.style.display = 'block';
-    });
+    // Note: authBtn click handler is set dynamically in updateAuthUI()
 
     closeModal.addEventListener('click', () => {
         authModal.style.display = 'none';
@@ -59,11 +57,18 @@ function setupEventListeners() {
         });
     });
 
+    // Landing "Get Started" - opens sign up
+    getStartedLandingBtn.addEventListener('click', () => {
+        if (!isSignUp) {
+            toggleAuthMode(); // Switch to sign up mode
+        }
+        authModal.style.display = 'block';
+    });
+
+    // Home "Get Started" (after login) - goes to recommendations
     getStartedBtn.addEventListener('click', () => {
         if (currentUser) {
             navigateTo('recommend');
-        } else {
-            authModal.style.display = 'block';
         }
     });
 
@@ -181,17 +186,47 @@ function checkAuth() {
 
     if (token && userId && username) {
         currentUser = { id: parseInt(userId), username };
+        // If user is already logged in, show recommendations page by default
+        updateAuthUI();
+        navigateTo('recommend');
+    } else {
+        // If not logged in, show landing page
         updateAuthUI();
     }
 }
 
 function updateAuthUI() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const landingSection = document.getElementById('landing');
+    const homeSection = document.getElementById('home');
+
     if (currentUser) {
         authBtn.textContent = 'Sign Out';
         authBtn.onclick = signOut;
+        // Show navigation links when logged in
+        navLinks.forEach(link => {
+            link.style.display = 'inline-block';
+        });
+        // Hide both landing and home hero sections by default
+        // User will be on recommendations page
+        landingSection.style.display = 'none';
+        homeSection.style.display = 'none';
     } else {
         authBtn.textContent = 'Sign In';
-        authBtn.onclick = () => { authModal.style.display = 'block'; };
+        authBtn.onclick = () => {
+            // Make sure we're in sign in mode, not sign up
+            if (isSignUp) {
+                toggleAuthMode();
+            }
+            authModal.style.display = 'block';
+        };
+        // Hide navigation links when not logged in
+        navLinks.forEach(link => {
+            link.style.display = 'none';
+        });
+        // Show landing section, hide home
+        landingSection.style.display = 'block';
+        homeSection.style.display = 'none';
     }
 }
 
@@ -201,15 +236,19 @@ function signOut() {
     localStorage.removeItem('username');
     currentUser = null;
     updateAuthUI();
-    navigateTo('home');
+    // Show landing section after sign out
+    document.getElementById('landing').style.display = 'block';
+    document.getElementById('home').style.display = 'none';
+    // Hide other sections
+    document.querySelectorAll('section:not(#landing)').forEach(s => s.style.display = 'none');
     showToast('Signed out successfully', 'success');
 }
 
 // Navigation
 function navigateTo(section) {
-    // Hide all sections
+    // Hide all sections including landing
     document.querySelectorAll('section').forEach(s => s.style.display = 'none');
-    
+
     // Show target section
     const targetSection = document.getElementById(section);
     if (targetSection) {
@@ -361,12 +400,12 @@ function createDrinkCard(drink, isRecommendation = false, rank = null) {
     
     if (isRecommendation && rank) {
         cardHTML += `
-            <div style="background: linear-gradient(135deg, #FFD700, #FFA500); 
-                        color: white; 
-                        padding: 0.5rem; 
-                        border-radius: 8px; 
-                        text-align: center; 
-                        font-weight: bold; 
+            <div style="background: #FFD700;
+                        color: white;
+                        padding: 0.5rem;
+                        border-radius: 8px;
+                        text-align: center;
+                        font-weight: bold;
                         margin-bottom: 1rem;">
                 #${rank} Pick for You
             </div>

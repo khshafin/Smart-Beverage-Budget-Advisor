@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Smart Budget Beverage Advisor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">☕ Smart Beverage Advisor</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="recommendations.html" class="nav-link">Recommendations</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <button class="btn-primary" id="authBtn">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="profile-section" id="profile">
+        <div class="container">
+            <h2>Your Profile</h2>
+            <div class="profile-card">
+                <div class="profile-info">
+                    <h3 id="profileUsername">Username</h3>
+                    <p id="profileEmail">email@example.com</p>
+                    <p>Member since: <span id="profileMemberSince">-</span></p>
+                </div>
+                <div class="profile-budget">
+                    <h4>Weekly Budget Settings</h4>
+                    <div class="form-group">
+                        <label for="updateBudget">Weekly Budget ($)</label>
+                        <input type="number" id="updateBudget" step="0.01" min="0">
+                        <button class="btn-primary" id="updateBudgetBtn">Update Budget</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Purchase History -->
+            <div class="purchase-history">
+                <h3>Purchase History</h3>
+                <div class="history-list" id="historyList">
+                    <!-- History items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div class="spinner" id="spinner" style="display:none;">
+        <div class="spinner-circle"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Built by Shafin</p>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
